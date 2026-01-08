@@ -482,6 +482,50 @@
             font-size: 0.95rem;
         }
 
+        /* Note dropdown */
+        .note-details {
+        background: var(--color-light);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        max-width: 800px;
+        margin: 1.5rem auto 0 auto;
+        }
+
+        .note-summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--color-primary);
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        }
+
+        /* Remove default arrow in some browsers */
+        .note-summary::-webkit-details-marker {
+        display: none;
+        }
+
+        /* Custom arrow */
+        .note-summary::before {
+        content: "▸";
+        display: inline-block;
+        transition: transform 0.2s ease;
+        font-size: 0.9rem;
+        }
+
+        /* Rotate arrow when open */
+        .note-details[open] .note-summary::before {
+        transform: rotate(90deg);
+        }
+
+        .note-content {
+        margin-top: 0.75rem;
+        color: var(--color-text-secondary);
+        font-size: 0.95rem;
+        }
+
         /* Footer */
         footer {
             background: var(--color-darker);
@@ -908,6 +952,24 @@
                 </div>
             </div>
         </section>
+
+        <section id="note">
+            <h2>Note</h2>
+
+            <details class="note-details">
+                <summary class="note-summary">
+                Read this before you scroll
+                </summary>
+                <div class="note-content">
+                <p>
+                    This portfolio is a live snapshot of my work; many projects are in progress and
+                    will change frequently. If something looks incomplete, it probably means I am still
+                    iterating on it.
+                </p>
+                </div>
+            </details>
+        </section>
+
     </main>
 
     <!-- Social Links Section -->
@@ -942,6 +1004,7 @@
     <footer>
         <p>&copy; 2024 Karthik V Krishnan. All rights reserved. Still no idea how I made this.</p>
     </footer>
+
 
     <script>
         // Smooth scroll behavior for navigation
