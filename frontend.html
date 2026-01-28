@@ -674,15 +674,15 @@
 
         .skill-progress {
             height: 100%;
-            width: var(--percentage);
             background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899, #06B6D4);
-            border-radius: 6px;
+            width: 0%;
+            border-radius: 10px;
             transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.6), 0 0 25px rgba(139, 92, 246, 0.3);
         }
 
-        .skill-item:last-child {
-            margin-bottom: 0;
+        .skill-progress.animate {
+            width: var(--percentage);
         }
 
         /* Responsive */
@@ -1482,6 +1482,35 @@
                 }
             });
         });
+
+        // Animate skill progress bars
+        document.querySelectorAll('.skill-category').forEach((category) => {
+            observer.observe(category);
+        });
+
+        // Modify the observer to also animate progress bars
+        const originalCallback = observer.constructor.prototype.constructor;
+        const updateObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate progress fills in skill categories
+                    const progressFills = entry.target.querySelectorAll('.skill-progress');
+                    progressFills.forEach((fill) => {
+                        fill.classList.add('animate');
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe skill categories
+        document.querySelectorAll('.skill-category').forEach((el) => {
+            updateObserver.observe(el);
+        });
+
     </script>
 </body>
 </html>
